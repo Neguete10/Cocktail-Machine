@@ -1,0 +1,5 @@
+{
+    "watch": ["home.html", "menu.html", "main.js", "margarita.html" ],
+    "ext": "js,html,css",
+    "exec": "electron ."
+  }

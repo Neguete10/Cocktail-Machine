@@ -1,0 +1,18 @@
+{
+  "name": "cocktail",
+  "version": "1.0.0",
+  "description": "Cocktail Machine - Summer 2024",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Henrique Lima",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^30.0.6"
+  },
+  "dependencies": {
+    "electron-reload": "^2.0.0-alpha.1"
+  }
+}
