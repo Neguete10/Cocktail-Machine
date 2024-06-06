@@ -101,7 +101,7 @@
               },
               body: JSON.stringify({
                 pumpId: this.id,
-                status: "on",
+                status: status,
               }),
             })
               .then((response) => response.json())
