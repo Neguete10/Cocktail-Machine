@@ -1,0 +1,130 @@
+.select-wrapper {
+    position: relative;
+    display: inline-block;
+  }
+
+  .select-wrapper select {
+    -webkit-appearance: none; /* Remove default style for WebKit browsers */
+    -moz-appearance: none; /* Remove default style for Firefox */
+    appearance: none; /* Remove default style */
+    padding: 5px 10px; /* Adjust as needed */
+    border: 1px solid #ccc; /* Adjust as needed */
+    border-radius: 4px; /* Adjust as needed */
+    background-color: white;
+  }
+
+  ul {
+    list-style-type: none; /* Remove default list bullets */
+    padding: 0; /* Remove default padding */
+    margin: 0; /* Remove default margin */
+    max-width: 600px; /* Set a max-width for the list */
+    margin: auto; /* Center the list */
+    background-color: #f7f7f7; /* Light background for the list */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  }
+
+  li {
+    display: flex; /* Use flexbox for layout */
+    align-items: center; /* Center items vertically */
+    justify-content: space-between; /* Space between label and controls */
+    padding: 10px 20px; /* Padding around items */
+    border-bottom: 1px solid #ddd; /* Separator between items */
+  }
+
+  li:last-child {
+    border-bottom: none; /* Remove border from the last item */
+  }
+
+  label {
+    font-weight: bold; /* Make labels bold */
+    margin-right: 10px; /* Space between label and buttons */
+  }
+
+  button,
+  select {
+    padding: 5px 10px; /* Padding inside buttons and select */
+    margin: 0 5px; /* Margin around buttons and select */
+    border: 1px solid #ccc; /* Border color */
+    border-radius: 4px; /* Rounded corners for buttons and select */
+    background-color: #fff; /* Background color */
+    cursor: pointer; /* Cursor pointer for buttons */
+  }
+
+  button:hover,
+  select:hover {
+    border-color: #888; /* Darker border on hover */
+  }
+
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    margin: 0;
+  }
+
+  h1 {
+    color: #333;
+  }
+
+  p {
+    color: #666;
+    margin-bottom: 10px;
+  }
+
+  .portion {
+    font-weight: bold;
+    color: #0099ff;
+  }
+
+  .back-btn {
+    display: inline-block;
+    background-color: #0099ff;
+    color: #ffffff;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    width: 60px;
+    height: 20px;
+    font-weight: 500;
+}
+
+  .back-btn:hover {
+    background-color: #0077cc;
+  }
+  .left {
+    width: 33%;
+    height: 600px;
+    border-radius: 0px 100px 100px 0;
+    background-color: rgb(64, 224, 171);
+    position: relative;
+    overflow: hidden;
+  }
+  .design {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+    color: #333;
+  }
+  .card {
+    display: flex;
+    background-color: #fff;
+    border-radius: 5px;
+  }
+  .right {
+    padding: 20px;
+    text-align: center;
+  }
+  .btn {
+    background-color: #0099ff;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+    width: 150px;
+    height: 50px;
+    font-size: large;
+    margin-top: 5%;
+  }

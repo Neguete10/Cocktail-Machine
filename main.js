@@ -12,7 +12,7 @@ function createWindow() {
         show: false,
     });
 
-    win.loadFile('home.html');
+    win.loadFile('html/home.html');
 
     win.once('ready-to-show', () => {
         win.minimize();

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Settings</title>
+    <link rel="stylesheet" href="../css/settings.css" />
+  </head>
+  <body>
+    <div id="cocktail-machine">
+      <a href="menu.html" class="back-btn">&larr; Back</a>
+      <h1>Settings</h1>
+      <h2>Pump Assignment</h2>
+      <form id="pumpAssignmentForm">
+        <label for="pump1">Pump 1:</label>
+        <select id="pump1" name="pump1">
+          <option value="">Select Cocktail</option>
+          <option value="Mojito">Mojito</option>
+          <option value="Cosmopolitan">Cosmopolitan</option>
+          <option value="Margarita">Margarita</option>
+          <option value="Martini">Martini</option>
+        </select>
+
+        <label for="pump2">Pump 2:</label>
+        <select id="pump2" name="pump2">
+          <option value="">Select Cocktail</option>
+          <option value="Mojito">Mojito</option>
+          <option value="Cosmopolitan">Cosmopolitan</option>
+          <option value="Margarita">Margarita</option>
+          <option value="Martini">Martini</option>
+        </select>
+
+        <label for="pump3">Pump 3:</label>
+        <select id="pump3" name="pump3">
+          <option value="">Select Cocktail</option>
+          <option value="Mojito">Mojito</option>
+          <option value="Cosmopolitan">Cosmopolitan</option>
+          <option value="Margarita">Margarita</option>
+          <option value="Martini">Martini</option>
+        </select>
+
+        <label for="pump4">Pump 4:</label>
+        <select id="pump4" name="pump4">
+          <option value="">Select Cocktail</option>
+          <option value="Mojito">Mojito</option>
+          <option value="Cosmopolitan">Cosmopolitan</option>
+          <option value="Margarita">Margarita</option>
+          <option value="Martini">Martini</option>
+        </select>
+
+        <button type="submit">Save</button>
+      </form>
+
+      <h2>Activate Pumps</h2>
+      <form id="pumpActivationForm">
+        <label for="pump1">Pump 1:</label>
+        <label class="switch">
+          <input type="checkbox" id="pump1" name="pump1" />
+          <span class="slider"></span>
+        </label>
+
+        <label for="pump2">Pump 2:</label>
+        <label class="switch">
+          <input type="checkbox" id="pump2" name="pump2" />
+          <span class="slider"></span>
+        </label>
+
+        <label for="pump3">Pump 3:</label>
+        <label class="switch">
+          <input type="checkbox" id="pump3" name="pump3" />
+          <span class="slider"></span>
+        </label>
+
+        <label for="pump4">Pump 4:</label>
+        <label class="switch">
+          <input type="checkbox" id="pump4" name="pump4" />
+          <span class="slider"></span>
+        </label>
+      </form>
+      <form id="cleanForm">
+        <h2>Clean Machine</h2>
+        <label class="switch">
+          <input type="checkbox" id="clean" name="clean" />
+          <span class="slider"></span>
+        </label>
+      </form>
+    </div>
+    <script>
+      document
+        .querySelectorAll('.switch input[type="checkbox"]')
+        .forEach((checkbox) => {
+          checkbox.addEventListener("change", function () {
+            if (this.checked) {
+              var status = "on";
+            } else {
+              var status = "off";
+            }
+            fetch("https://your-api-url.com", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                pumpId: this.id,
+                status: "on",
+              }),
+            })
+              .then((response) => response.json())
+              .then((data) => console.log(data))
+              .catch((error) => {
+                console.error("Error:", error);
+              });
+          });
+        });
+    </script>
+  </body>
+</html>

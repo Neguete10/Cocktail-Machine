@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Margarita</title>
+    <link rel="stylesheet" href="../css/margarita.css" />
+  </head>
+  <body>
+    <div class="card">
+      <div class="left" style="width: 35%">
+        <a href="menu.html" class="back-btn">&larr; Back</a>
+        <div class="design">
+          <img
+            src="https://vinepair.com/wp-content/uploads/2023/08/margarita-card.jpg"
+            alt="margarita"
+            style="height: 300px; width: 150px"
+          />
+        </div>
+      </div>
+      <div class="right" style="width: 65%">
+        <h1>Margarita</h1>
+
+        <p style="text-align: justify; margin: 5%">
+          The portion of margarita can also refer to the amount of alcohol in
+          the drink. A standard portion of margarita contains about 1.5 ounces
+          of tequila, 1 ounce of orange liqueur, and 1 ounce of lime juice. The
+          drink is typically served in a glass with a salted rim, although some
+          variations may use sugar or other garnishes.
+        </p>
+        <ul>
+          <li>
+            <label for="tequila">Tequila:</label>
+            <div class="select-wrapper">
+              <button onclick="decreaseValue('tequila')">-</button>
+              <select id="tequila" name="tequila">
+                <option value="1.5">1.5 ounces</option>
+                <option value="2">2 ounces</option>
+                <option value="2.5">2.5 ounces</option>
+              </select>
+              <button onclick="increaseValue('tequila')">+</button>
+            </div>
+          </li>
+          <li>
+            <label for="soda">Soda:</label>
+            <div class="select-wrapper">
+              <button onclick="decreaseValue('soda')">-</button>
+              <select id="soda" name="soda">
+                <option value="1">1 ounce</option>
+                <option value="1.5">1.5 ounces</option>
+                <option value="2">2 ounces</option>
+              </select>
+              <button onclick="increaseValue('soda')">+</button>
+            </div>
+          </li>
+          <li>
+            <label for="limejuice">Lime Juice:</label>
+            <div class="select-wrapper">
+              <button onclick="decreaseValue('limejuice')">-</button>
+              <select id="limejuice" name="limejuice">
+                <option value="1">1 ounce</option>
+                <option value="1.5">1.5 ounces</option>
+                <option value="2">2 ounces</option>
+              </select>
+              <button onclick="increaseValue('limejuice')">+</button>
+            </div>
+          </li>
+        </ul>
+        <button class="btn" onclick="makeRequest()">Make Me</button>
+      </div>
+    </div>
+
+    <script>
+      function makeRequest() {
+        var tequilaValue = document.getElementById("tequila").value;
+        var sodaValue = document.getElementById("soda").value;
+        var limejuiceValue = document.getElementById("limejuice").value;
+
+        // Make your HTTP request
+        fetch('http://localhost:5000/activated_pump', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            tequila: tequilaValue,
+            soda: sodaValue,
+            limejuice: limejuiceValue
+          })
+        })
+          .then(response => response.json())
+          .then(data => {
+            // Handle the response data
+            console.log(data);
+          })
+          .catch(error => {
+            // Handle any errors
+            console.error(error);
+          });
+
+      }
+      function increaseValue(selectId) {
+        var select = document.getElementById(selectId);
+        var currentIndex = select.selectedIndex;
+        if (currentIndex < select.options.length - 1) {
+          // Check if not the last option
+          select.selectedIndex = currentIndex + 1; // Move to next option
+        }
+      }
+
+      function decreaseValue(selectId) {
+        var select = document.getElementById(selectId);
+        var currentIndex = select.selectedIndex;
+        if (currentIndex > 0) {
+          // Check if not the first option
+          select.selectedIndex = currentIndex - 1; // Move to previous option
+        }
+      }
+    </script>
+  </body>
+</html>

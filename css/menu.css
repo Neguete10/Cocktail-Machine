@@ -15,14 +15,51 @@ body {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+.forRevBtn {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: -5%;
+}
+
 .back-btn {
     display: inline-block;
-    background-color: #7da8c3;
+    background-color: #0099ff;
     color: #ffffff;
     padding: 10px 15px;
     border-radius: 5px;
     text-decoration: none;
     margin-bottom: 20px;
+    width: 60px;
+    height: 25px;
+    font-weight: 500;
+}
+
+.drink-btn {
+    display: inline-block;
+    border: none;
+    background-color: #7da8c3;
+    color: #ffffff;
+    border-radius: 5px;
+    text-decoration: none;
+    margin: 10px;
+    width: auto;
+    height: 30px;
+    font-weight: 600;
+    font-size: large;
+    cursor: pointer;
+}
+
+.settings-btn {
+    display: inline-block;
+    background-color: #0099ff;
+    color: #ffffff;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-bottom: 20px;
+    margin-left: 20px;
+    width: 25px;
+    height: 25px;
 }
 
 h1 {
@@ -44,6 +81,7 @@ h1 {
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
 }
 
 .drink-image {

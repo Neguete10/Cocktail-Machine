@@ -1,0 +1,23 @@
+body {
+   
+    /* background-image: url("https://img.freepik.com/free-photo/nightlife-celebration-multi-colored-bar-establishment-generative-ai_188544-12375.jpg"); */
+    background-color: #e7eff9;;
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family: Arial, sans-serif;
+}
+
+h1, h2 {
+    color: #333;; /* Red text color */
+    text-align: center;
+}
+
+p {
+    color: #333;; /* Red link color */
+    text-align: center;
+}
+
+button {
+    display: block;
+    margin: 0 auto;
+}
