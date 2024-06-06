@@ -75,6 +75,7 @@
           <span class="slider"></span>
         </label>
       </form>
+
       <form id="cleanForm">
         <h2>Clean Machine</h2>
         <label class="switch">
@@ -93,7 +94,7 @@
             } else {
               var status = "off";
             }
-            fetch("https://your-api-url.com", {
+            fetch("http://localhost:5000/pump_control", {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",

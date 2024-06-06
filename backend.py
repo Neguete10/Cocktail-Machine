@@ -42,5 +42,30 @@ def activate_pumps():
     
     return jsonify({"status": "success", "durations": durations})
 
+@app.route('/pump_control', methods=['POST'])
+def pump_control():
+    data = request.get_json()
+    return jsonify({
+        "message": data,
+        "status": "success"})
+    # data = request.get_json()
+    # pump = data.get("pump", None)
+    # action = data.get("action", None)
+    
+    # if pump is None or action is None:
+    #     return jsonify({"status": "error", "message": "Missing pump or action"})
+    
+    # if pump not in pump_pins:
+    #     return jsonify({"status": "error", "message": "Invalid pump"})
+    
+    # if action == "on":
+    #     GPIO.output(pump_pins[pump], GPIO.HIGH)
+    # elif action == "off":
+    #     GPIO.output(pump_pins[pump], GPIO.LOW)
+    # else:
+    #     return jsonify({"status": "error", "message": "Invalid action"})
+    
+    # return jsonify({"status": "success", "pump": pump, "action": action})
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
