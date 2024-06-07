@@ -2,22 +2,30 @@ from flask import Flask, request, jsonify
 import RPi.GPIO as GPIO
 import time
 import atexit
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
+
+app = Flask(__name__)
+
+#TOP VIEW FROM BACK
+# M1 -- M2
+# M3 -- M4
 
 # Define GPIO pins for the pumps
 pump_pins = {
     "pump1": 17,
-    "pump2": 18,
-    "pump3": 27,
-    "pump4": 22
+    "pump2": 27,
+    "pump3": 22,
+    "pump4": 23
 }
 
 # Set up the GPIO pins
 GPIO.setmode(GPIO.BCM)
 for pin in pump_pins.values():
     GPIO.setup(pin, GPIO.OUT)
-    GPIO.output(pin, GPIO.LOW)
+    GPIO.output(pin, GPIO.HIGH)
 
 def cleanup_gpio():
     GPIO.cleanup()
@@ -50,9 +58,9 @@ def pump_control():
     pumpStatus = data.get("status", 0)
 
     if pumpStatus == "on":
-        GPIO.output(pump_pins[pumpId], GPIO.HIGH)
-    else:
         GPIO.output(pump_pins[pumpId], GPIO.LOW)
+    else:
+        GPIO.output(pump_pins[pumpId], GPIO.HIGH)
     
     return jsonify({
         "message": pumpId + " is turned " + pumpStatus + "!",
@@ -64,12 +72,12 @@ def clean():
     pumpId = data.get("pumpId", 0)
     if pumpId == "clean":
         for pump in pump_pins.values():
-            GPIO.output(pump, GPIO.HIGH)
+            GPIO.output(pump, GPIO.LOW)
         
         time.sleep(10)
         
         for pump in pump_pins.values():
-            GPIO.output(pump, GPIO.LOW)
+            GPIO.output(pump, GPIO.HIGH)
         
     print(pumpId)
     
