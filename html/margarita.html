@@ -40,15 +40,15 @@
             </div>
           </li>
           <li>
-            <label for="soda">Soda:</label>
+            <label for="sprite">Sprite:</label>
             <div class="select-wrapper">
-              <button onclick="decreaseValue('soda')">-</button>
-              <select id="soda" name="soda">
+              <button onclick="decreaseValue('sprite')">-</button>
+              <select id="sprite" name="sprite">
                 <option value="1">1 ounce</option>
                 <option value="1.5">1.5 ounces</option>
                 <option value="2">2 ounces</option>
               </select>
-              <button onclick="increaseValue('soda')">+</button>
+              <button onclick="increaseValue('sprite')">+</button>
             </div>
           </li>
           <li>
@@ -70,9 +70,32 @@
 
     <script>
       function makeRequest() {
+        
+        var savedData = JSON.parse(localStorage.getItem('formData'));
+        if (savedData.pump1 !== "Tequila" && savedData.pump1 !== "Lime Juice" && savedData.pump1 !== "" && savedData.pump1 !== "Sprite") {
+          alert("Please assign the correct ingredients to pump 1 in the settings page.");
+          return;
+        }
+        if (savedData.pump2 !== "Tequila" && savedData.pump2 !== "Lime Juice" && savedData.pump2 !== "" && savedData.pump2 !== "Sprite") {
+          alert("Please assign the correct ingredients to pump 2 in the settings page.");
+          return;
+        }
+        if (savedData.pump3 !== "Tequila" && savedData.pump3 !== "Lime Juice" && savedData.pump3 !== "" && savedData.pump3 !== "Sprite") {
+          alert("Please assign the correct ingredients to pump 3 in the settings page.");
+          return;
+        }
+        if (savedData.pump4 !== "Tequila" && savedData.pump4 !== "Lime Juice" && savedData.pump4 !== "" && savedData.pump4 !== "Sprite") {
+          alert("Please assign the correct ingredients to pump 4 in the settings page.");
+          return;
+        }
+        
+
         var tequilaValue = document.getElementById("tequila").value;
-        var sodaValue = document.getElementById("soda").value;
+        var sodaValue = document.getElementById("sprite").value;
         var limejuiceValue = document.getElementById("limejuice").value;
+
+
+
 
         // Make your HTTP request
         fetch('http://localhost:5000/activate_pump', {

@@ -1,20 +1,76 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <title>Cocktail Machine</title>
-    <link rel="stylesheet" href="../css/home.css">
-    <link rel="icon" href="../images/favicon.ico">
-</head>
-<body>
-    <h1>Welcome to Cocktail Machine</h1>
-    <h2>By Henrique Lima</h2>
-    <p>Enjoy a wide variety of delicious cocktails made just for you!</p>
-    <button onclick="window.location.href='menu.html'">Click here to begin</button>
+    <link rel="stylesheet" href="../css/home.css" />
+    <link rel="icon" href="../images/favicon.ico" />
+    <style>
+      .slideshow-container {
+        position: relative;
+        max-width: 100%;
+        margin: auto;
+      }
+
+      .mySlides {
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+      .slideshow-container img {
+        width: 100%;
+        height: auto;
+      }
+
+      /* Add this to style your headers and button */
+      .slideshow-container h1,
+      .slideshow-container h2,
+      .slideshow-container p,
+      .slideshow-container button {
+        position: relative;
+        z-index: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="slideshow-container">
+      <h1>Welcome to Cocktail Machine</h1>
+      <h2>By Henrique Lima</h2>
+      <p>Enjoy a wide variety of delicious cocktails made just for you!</p>
+      <button onclick="window.location.href='menu.html'">
+        Click here to begin
+      </button>
+      <div class="mySlides">
+        <img src="../images/cosmopolitan.jpg" alt="Slide 1" />
+      </div>
+      <div class="mySlides">
+        <img src="../images/margarita.jpg" alt="Slide 2" />
+      </div>
+      <div class="mySlides">
+        <img src="../images/oldfashion.jpg" alt="Slide 3" />
+      </div>
+    </div>
+
     <script>
-        var savedData = JSON.parse(localStorage.getItem('formData'));
-        if (savedData) {
-            document.querySelector('h1').textContent = 'Welcome back, ' + savedData.name + '!';
+      var slideIndex = 0;
+      showSlides();
+
+      function showSlides() {
+        var i;
+        var slides = document.getElementsByClassName("mySlides");
+        for (i = 0; i < slides.length; i++) {
+          slides[i].style.display = "none";
         }
+        slideIndex++;
+        if (slideIndex > slides.length) {
+          slideIndex = 1;
+        }
+        slides[slideIndex - 1].style.display = "block";
+        setTimeout(showSlides, 2000); // Change slide every 2 seconds
+      }
     </script>
-</body>
+  </body>
 </html>
