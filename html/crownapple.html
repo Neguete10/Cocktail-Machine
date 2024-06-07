@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Crownberry Apple</title>
+    <link rel="stylesheet" href="../css/margarita.css" />
+  </head>
+  <body>
+    <div class="card">
+      <div class="left" style="width: 35%">
+        <a href="menu.html" class="back-btn">&larr; Back</a>
+        <div class="design">
+          <img
+            src="../images/crownapple.webp"
+            alt="crownapple"
+            style="height: 300px; width: 150px; border-radius: 5px;"
+          />
+        </div>
+      </div>
+      <div class="right" style="width: 65%">
+        <h1>Crownberry Apple</h1>
+
+        <p style="text-align: justify; margin: 5%">
+          A standard portion of Crownberry Apple contains about 1.5 ounces of
+          Crown Royal Apple and 4 ounces of cranberry juice. The drink is
+          typically garnished with a slice of apple.
+        </p>
+        <ul>
+          <li>
+            <label for="CrownRoyal">Crown Royal:</label>
+            <div class="select-wrapper">
+              <button onclick="decreaseValue('CrownRoyal')">-</button>
+              <select id="CrownRoyal" name="CrownRoyal">
+                <option value="1.5">1.5 ounces</option>
+                <option value="2">2 ounces</option>
+                <option value="2.5">2.5 ounces</option>
+              </select>
+              <button onclick="increaseValue('CrownRoyal')">+</button>
+            </div>
+          </li>
+          <li>
+            <label for="CranberryJuice">Cranberry Juice:</label>
+            <div class="select-wrapper">
+              <button onclick="decreaseValue('CranberryJuice')">-</button>
+              <select id="CranberryJuice" name="CranberryJuice">
+                <option value="4">4 ounce</option>
+                <option value="4.5">4.5 ounces</option>
+                <option value="5">5 ounces</option>
+              </select>
+              <button onclick="increaseValue('CranberryJuice')">+</button>
+            </div>
+          </li>
+        </ul>
+        <button class="btn" onclick="makeRequest()">Make Me</button>
+      </div>
+    </div>
+
+    <script>
+      function makeRequest() {
+        var savedData = JSON.parse(localStorage.getItem("formData"));
+        if (
+          savedData.pump1 !== "CrownRoyal" &&
+          savedData.pump1 !== "Lime Juice" &&
+          savedData.pump1 !== "" &&
+          savedData.pump1 !== "CranberryJuice"
+        ) {
+          alert(
+            "Please assign the correct ingredients to pump 1 in the settings page."
+          );
+          return;
+        }
+        if (
+          savedData.pump2 !== "CrownRoyal" &&
+          savedData.pump2 !== "Lime Juice" &&
+          savedData.pump2 !== "" &&
+          savedData.pump2 !== "CranberryJuice"
+        ) {
+          alert(
+            "Please assign the correct ingredients to pump 2 in the settings page."
+          );
+          return;
+        }
+        if (
+          savedData.pump3 !== "CrownRoyal" &&
+          savedData.pump3 !== "Lime Juice" &&
+          savedData.pump3 !== "" &&
+          savedData.pump3 !== "CranberryJuice"
+        ) {
+          alert(
+            "Please assign the correct ingredients to pump 3 in the settings page."
+          );
+          return;
+        }
+        if (
+          savedData.pump4 !== "CrownRoyal" &&
+          savedData.pump4 !== "Lime Juice" &&
+          savedData.pump4 !== "" &&
+          savedData.pump4 !== "CranberryJuice"
+        ) {
+          alert(
+            "Please assign the correct ingredients to pump 4 in the settings page."
+          );
+          return;
+        }
+
+        var CrownRoyalValue = document.getElementById("CrownRoyal").value;
+        var sodaValue = document.getElementById("CranberryJuice").value;
+        var limejuiceValue = document.getElementById("limejuice").value;
+
+        // Make your HTTP request
+        fetch("http://localhost:5000/activate_pump", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            CrownRoyal: CrownRoyalValue,
+            soda: sodaValue,
+            limejuice: limejuiceValue,
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            // Handle the response data
+            console.log(data);
+          })
+          .catch((error) => {
+            // Handle any errors
+            console.error(error);
+          });
+      }
+      function increaseValue(selectId) {
+        var select = document.getElementById(selectId);
+        var currentIndex = select.selectedIndex;
+        if (currentIndex < select.options.length - 1) {
+          // Check if not the last option
+          select.selectedIndex = currentIndex + 1; // Move to next option
+        }
+      }
+
+      function decreaseValue(selectId) {
+        var select = document.getElementById(selectId);
+        var currentIndex = select.selectedIndex;
+        if (currentIndex > 0) {
+          // Check if not the first option
+          select.selectedIndex = currentIndex - 1; // Move to previous option
+        }
+      }
+    </script>
+  </body>
+</html>
