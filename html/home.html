@@ -10,5 +10,11 @@
     <h2>By Henrique Lima</h2>
     <p>Enjoy a wide variety of delicious cocktails made just for you!</p>
     <button onclick="window.location.href='menu.html'">Click here to begin</button>
+    <script>
+        var savedData = JSON.parse(localStorage.getItem('formData'));
+        if (savedData) {
+            document.querySelector('h1').textContent = 'Welcome back, ' + savedData.name + '!';
+        }
+    </script>
 </body>
 </html>

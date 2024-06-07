@@ -111,6 +111,24 @@
               });
           });
         });
+
+      document
+        .getElementById("pumpAssignmentForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          var formElements = this.elements;
+          var formData = {};
+
+          for (var i = 0; i < formElements.length; i++) {
+            if (formElements[i].type !== "submit") {
+              // we don't want to include the submit button
+              formData[formElements[i].name] = formElements[i].value;
+            }
+          }
+
+          localStorage.setItem("formData", JSON.stringify(formData));
+        });
     </script>
   </body>
 </html>
