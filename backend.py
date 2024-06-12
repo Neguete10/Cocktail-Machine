@@ -10,15 +10,15 @@ CORS(app)
 app = Flask(__name__)
 
 #TOP VIEW FROM BACK
-# M1 -- M2
-# M3 -- M4
+# M1 -- M3
+# M3 -- M2
 
 # Define GPIO pins for the pumps
 pump_pins = {
     "pump1": 17,
-    "pump2": 27,
-    "pump3": 22,
-    "pump4": 23
+    "pump2": 23,
+    "pump3": 27,
+    "pump4": 22
 }
 
 # Set up the GPIO pins
