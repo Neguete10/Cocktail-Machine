@@ -12,7 +12,7 @@
           <img
             src="../images/crownapple.webp"
             alt="crownapple"
-            style="height: 300px; width: 150px; border-radius: 5px;"
+            style="height: 300px; width: 150px; border-radius: 5px"
           />
         </div>
       </div>
@@ -55,56 +55,70 @@
     </div>
 
     <script>
+      var ingredients = ["CrownRoyal", "CranberryJuice"];
+
+      function checkPumpsAndIngredients(pumps) {
+        var pumpsWithIngredients = [];
+        for (let liquid of ingredients) {
+          if (!Object.values(pumps).includes(liquid)) {
+            alert(`Please assign ${liquid} to a pump in the settings page.`);
+            return false;
+          }
+          pumpsWithIngredients.push(
+            Object.keys(pumps).find((key) => pumps[key] === liquid)
+          );
+        }
+
+        var pumpsObject = {};
+        for (let pump of pumpsWithIngredients) {
+          pumpsObject[pump] = pumps[pump];
+        }
+
+        var jsonPumps = JSON.stringify(pumpsObject);
+        console.log(jsonPumps);
+
+
+        return pumpsWithIngredients;
+      }
+
       function makeRequest() {
-        var savedData = JSON.parse(localStorage.getItem("formData"));
-        if (
-          savedData.pump1 !== "CrownRoyal" &&
-          savedData.pump1 !== "Lime Juice" &&
-          savedData.pump1 !== "" &&
-          savedData.pump1 !== "CranberryJuice"
-        ) {
-          alert(
-            "Please assign the correct ingredients to pump 1 in the settings page."
-          );
-          return;
-        }
-        if (
-          savedData.pump2 !== "CrownRoyal" &&
-          savedData.pump2 !== "Lime Juice" &&
-          savedData.pump2 !== "" &&
-          savedData.pump2 !== "CranberryJuice"
-        ) {
-          alert(
-            "Please assign the correct ingredients to pump 2 in the settings page."
-          );
-          return;
-        }
-        if (
-          savedData.pump3 !== "CrownRoyal" &&
-          savedData.pump3 !== "Lime Juice" &&
-          savedData.pump3 !== "" &&
-          savedData.pump3 !== "CranberryJuice"
-        ) {
-          alert(
-            "Please assign the correct ingredients to pump 3 in the settings page."
-          );
-          return;
-        }
-        if (
-          savedData.pump4 !== "CrownRoyal" &&
-          savedData.pump4 !== "Lime Juice" &&
-          savedData.pump4 !== "" &&
-          savedData.pump4 !== "CranberryJuice"
-        ) {
-          alert(
-            "Please assign the correct ingredients to pump 4 in the settings page."
-          );
+        var pumps = JSON.parse(localStorage.getItem("formData"));
+        var CrownRoyalValue = document.getElementById("CrownRoyal").value;
+        var CranberryJuiceValue =
+          document.getElementById("CranberryJuice").value;
+        const pumpsWithIngredients = checkPumpsAndIngredients(pumps);
+
+        if (!pumpsWithIngredients) {
           return;
         }
 
-        var CrownRoyalValue = document.getElementById("CrownRoyal").value;
-        var sodaValue = document.getElementById("CranberryJuice").value;
-        var limejuiceValue = document.getElementById("limejuice").value;
+        var body = {
+          pump1: 0,
+          pump2: 0,
+          pump3: 0,
+          pump4: 0,
+        };
+
+        var ingredients = {
+          CrownRoyal: CrownRoyalValue,
+          CranberryJuice: CranberryJuiceValue,
+          // Add more ingredients here
+        };
+
+        for (let pump of pumpsWithIngredients) {
+          var ingredient = pumps[pump];
+          if (ingredients.hasOwnProperty(ingredient)) {
+            body[pump] = ingredients[ingredient];
+          }
+        }
+
+        // for (let pump of pumpsWithIngredients) {
+        //   if (pumps[pump] === "CrownRoyal") {
+        //     body[pump] = CrownRoyalValue;
+        //   } else if (pumps[pump] === "CranberryJuice") {
+        //     body[pump] = CranberryJuiceValue;
+        //   }
+        // }
 
         // Make your HTTP request
         fetch("http://localhost:5000/activate_pump", {
@@ -112,10 +126,7 @@
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({
-            CrownRoyal: CrownRoyalValue,
-            CranberryJuice: CranberryJuiceValue,
-          }),
+          body: JSON.stringify({ body }),
         })
           .then((response) => response.json())
           .then((data) => {
@@ -127,6 +138,7 @@
             console.error(error);
           });
       }
+
       function increaseValue(selectId) {
         var select = document.getElementById(selectId);
         var currentIndex = select.selectedIndex;
