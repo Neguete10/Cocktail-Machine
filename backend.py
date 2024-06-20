@@ -70,12 +70,11 @@ def pump_control():
 def clean():
     data = request.get_json()
     pumpId = data.get("pumpId", 0)
-    if pumpId == "clean":
+    pumpStatus = data.get("status", 0)
+    if pumpStatus == "on":
         for pump in pump_pins.values():
             GPIO.output(pump, GPIO.LOW)
-        
-        time.sleep(10)
-        
+    else:
         for pump in pump_pins.values():
             GPIO.output(pump, GPIO.HIGH)
         

@@ -169,29 +169,30 @@
       }
 
       document
+        .getElementById("pumpActivationForm")
         .querySelectorAll('.switch input[type="checkbox"]')
         .forEach((checkbox) => {
           checkbox.addEventListener("change", function () {
-            if (this.checked) {
-              var status = "on";
-            } else {
-              var status = "off";
-            }
-            fetch("http://localhost:5000/pump_control", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                pumpId: this.id,
-                status: status,
-              }),
-            })
-              .then((response) => response.json())
-              .then((data) => console.log(data))
-              .catch((error) => {
-                console.error("Error:", error);
-              });
+        if (this.checked) {
+          var status = "on";
+        } else {
+          var status = "off";
+        }
+        fetch("http://localhost:5000/pump_control", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            pumpId: this.id,
+            status: status,
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => console.log(data))
+          .catch((error) => {
+            console.error("Error:", error);
+          });
           });
         });
 
@@ -212,6 +213,35 @@
 
           localStorage.setItem("formData", JSON.stringify(formData));
         });
+
+        document
+        .getElementById("cleanForm")
+        .querySelectorAll('.switch input[type="checkbox"]')
+        .forEach((checkbox) => {
+          checkbox.addEventListener("change", function () {
+        if (this.checked) {
+          var status = "on";
+        } else {
+          var status = "off";
+        }
+        fetch("http://localhost:5000/clean", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            pumpId: this.id,
+            status: status,
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => console.log(data))
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+          });
+        });
+        </script>
     </script>
   </body>
 </html>
