@@ -1,0 +1,21 @@
+[
+  {
+    "name": "Old Fashion",
+    "image": "../images/oldfashion.jpg",
+    "description": "The Old Fashion is a classic cocktail made with whiskey, sugar, and bitters. It is typically garnished with an orange twist and a cherry.",
+    "ingredients": {
+      "Whiskey": {
+        "label": "Whiskey",
+        "options": ["2 ounces", "2.5 ounces", "3 ounces"]
+      },
+      "Sugar": {
+        "label": "Sugar",
+        "options": ["1 teaspoon", "1.5 teaspoons", "2 teaspoons"]
+      },
+      "Bitters": {
+        "label": "Bitters",
+        "options": ["2 dashes", "3 dashes", "4 dashes"]
+      }
+    }
+  }
+]

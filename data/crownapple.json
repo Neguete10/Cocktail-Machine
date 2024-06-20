@@ -1,0 +1,18 @@
+[
+    {
+      "name": "Crownberry Apple",
+      "image": "../images/crownapple.webp",
+      "description": "A standard portion of Crownberry Apple contains about 1.5 ounces of Crown Royal Apple and 4 ounces of cranberry juice. The drink is typically garnished with a slice of apple.",
+      "ingredients": {
+        "CrownRoyal": {
+          "label": "Crown Royal",
+          "options": ["1.5 ounces", "2 ounces", "2.5 ounces"]
+        },
+        "CranberryJuice": {
+          "label": "Cranberry Juice",
+          "options": ["4 ounces", "4.5 ounces", "5 ounces"]
+        }
+      }
+    }
+  ]
+  

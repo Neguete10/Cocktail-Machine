@@ -21,11 +21,11 @@
     </div>
 
     <script>
-      var drinkName = "Crownberry Apple"; // This can be dynamically set based on user selection
+      var drinkName = "Old Fashion"; // This can be dynamically set based on user selection
       var drinkIngredients = {}; // Global variable to store the current drink's ingredients
 
       function loadDrinkData() {
-        fetch('../data/crownapple.json')
+        fetch('../data/oldfashion.json')
           .then(response => response.json())
           .then(data => {
             const drink = data.find(d => d.name === drinkName);
