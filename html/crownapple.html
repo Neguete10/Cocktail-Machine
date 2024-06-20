@@ -3,6 +3,7 @@
   <head>
     <title>Crownberry Apple</title>
     <link rel="stylesheet" href="../css/margarita.css" />
+    <script src="../js/helper.js"></script>
   </head>
   <body>
     <div class="card">
@@ -60,7 +61,7 @@
       function checkPumpsAndIngredients(pumps) {
         var pumpsWithIngredients = [];
         for (let liquid of ingredients) {
-          if (!Object.values(pumps).includes(liquid)) {
+          if (!pumps || !Object.values(pumps).includes(liquid)) {
             alert(`Please assign ${liquid} to a pump in the settings page.`);
             return false;
           }
@@ -75,8 +76,6 @@
         }
 
         var jsonPumps = JSON.stringify(pumpsObject);
-        console.log(jsonPumps);
-
 
         return pumpsWithIngredients;
       }
@@ -112,29 +111,24 @@
           }
         }
 
-        // for (let pump of pumpsWithIngredients) {
-        //   if (pumps[pump] === "CrownRoyal") {
-        //     body[pump] = CrownRoyalValue;
-        //   } else if (pumps[pump] === "CranberryJuice") {
-        //     body[pump] = CranberryJuiceValue;
-        //   }
-        // }
-
         // Make your HTTP request
-        fetch("http://localhost:5000/activate_pump", {
+        fetch("http://localhost:5000/activate_pumps", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ body }),
+          body: JSON.stringify({
+            pump1: body.pump1,
+            pump2: body.pump2,
+            pump3: body.pump3,
+            pump4: body.pump4,
+          }),
         })
           .then((response) => response.json())
           .then((data) => {
-            // Handle the response data
             console.log(data);
           })
           .catch((error) => {
-            // Handle any errors
             console.error(error);
           });
       }
