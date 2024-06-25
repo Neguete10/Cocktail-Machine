@@ -1,0 +1,14 @@
+[
+    {
+      "name": "Water",
+      "image": "../images/crownapple.webp",
+      "description": "Test the water calibration of your Crown Royal",
+      "ingredients": {
+        "CrownRoyal": {
+          "label": "Crown Royal",
+          "options": ["1 ounce", "2 ounces", "3 ounces"]
+        }
+      }
+    }
+  ]
+  

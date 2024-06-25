@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title id="drink-title"></title>
+    <link rel="stylesheet" href="../css/margarita.css" />
+  </head>
+  <body>
+    <div class="card">
+      <div class="left" style="width: 35%">
+        <a href="menu.html" class="back-btn">&larr; Back</a>
+        <div class="design">
+          <img id="drink-image" style="height: 300px; width: 150px; border-radius: 5px" />
+        </div>
+      </div>
+      <div class="right" style="width: 65%">
+        <h1 id="drink-name"></h1>
+        <p id="drink-description" style="text-align: justify; margin: 5%"></p>
+        <ul id="ingredient-list"></ul>
+        <button class="btn" onclick="makeRequest()">Make Me</button>
+      </div>
+    </div>
+
+    <script>
+      var drinkName = "Water"; // This can be dynamically set based on user selection
+      var drinkIngredients = {}; // Global variable to store the current drink's ingredients
+
+      function loadDrinkData() {
+        fetch('../data/water.json')
+          .then(response => response.json())
+          .then(data => {
+            const drink = data.find(d => d.name === drinkName);
+            if (drink) {
+              document.getElementById('drink-title').innerText = drink.name;
+              document.getElementById('drink-name').innerText = drink.name;
+              document.getElementById('drink-image').src = drink.image;
+              document.getElementById('drink-description').innerText = drink.description;
+
+              drinkIngredients = drink.ingredients; // Store the ingredients for later use
+
+              const ingredientList = document.getElementById('ingredient-list');
+              ingredientList.innerHTML = ''; // Clear existing content
+
+              for (let [key, ingredient] of Object.entries(drink.ingredients)) {
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `
+                  <label for="${key}">${ingredient.label}:</label>
+                  <div class="select-wrapper">
+                    <button onclick="decreaseValue('${key}')">-</button>
+                    <select id="${key}" name="${key}">
+                      ${ingredient.options.map(option => `<option value="${option.split(' ')[0]}">${option}</option>`).join('')}
+                    </select>
+                    <button onclick="increaseValue('${key}')">+</button>
+                  </div>
+                `;
+                ingredientList.appendChild(listItem);
+              }
+            }
+          })
+          .catch(error => console.error('Error loading drink data:', error));
+      }
+
+      loadDrinkData();
+
+      function checkPumpsAndIngredients(pumps) {
+        var pumpsWithIngredients = [];
+        for (let liquid of Object.keys(drinkIngredients)) { // Use the stored ingredients
+          if (!pumps || !Object.values(pumps).includes(liquid)) {
+            alert(`Please assign ${liquid} to a pump in the settings page.`);
+            return false;
+          }
+          pumpsWithIngredients.push(
+            Object.keys(pumps).find((key) => pumps[key] === liquid)
+          );
+        }
+
+        return pumpsWithIngredients;
+      }
+
+      function makeRequest() {
+        var pumps = JSON.parse(localStorage.getItem("formData"));
+        var ingredients = {};
+
+        document.querySelectorAll('select').forEach(select => {
+          ingredients[select.id] = select.value;
+        });
+
+        const pumpsWithIngredients = checkPumpsAndIngredients(pumps);
+        if (!pumpsWithIngredients) {
+          return;
+        }
+
+        var body = {
+          pump1: 0,
+          pump2: 0,
+          pump3: 0,
+          pump4: 0,
+        };
+
+        for (let pump of pumpsWithIngredients) {
+          var ingredient = pumps[pump];
+          if (ingredients.hasOwnProperty(ingredient)) {
+            body[pump] = ingredients[ingredient];
+          }
+        }
+
+        fetch("http://localhost:5000/activate_pumps", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(body),
+        })
+          .then(response => response.json())
+          .then(data => {
+            console.log(data);
+          })
+          .catch(error => {
+            console.error(error);
+          });
+      }
+
+      function increaseValue(selectId) {
+        var select = document.getElementById(selectId);
+        var currentIndex = select.selectedIndex;
+        if (currentIndex < select.options.length - 1) {
+          select.selectedIndex = currentIndex + 1;
+        }
+      }
+
+      function decreaseValue(selectId) {
+        var select = document.getElementById(selectId);
+        var currentIndex = select.selectedIndex;
+        if (currentIndex > 0) {
+          select.selectedIndex = currentIndex - 1;
+        }
+      }
+    </script>
+  </body>
+</html>
