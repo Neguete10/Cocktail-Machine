@@ -41,11 +41,11 @@ def activate_pumps():
         "pump3": int(data.get("pump3", 0)),
         "pump4": int(data.get("pump4", 0))
     }
-    
+    seconds_per_ounce = 14 #off-set calibrated for 1 oz of liquid
     for pump, duration in durations.items():
         if duration > 0:
             GPIO.output(pump_pins[pump], GPIO.LOW)
-            time.sleep(duration)
+            time.sleep(duration*seconds_per_ounce)
             GPIO.output(pump_pins[pump], GPIO.HIGH)
     
     return jsonify({"status": "success", "durations": durations})
