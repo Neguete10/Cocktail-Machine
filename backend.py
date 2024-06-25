@@ -36,17 +36,17 @@ atexit.register(cleanup_gpio)
 def activate_pumps():
     data = request.get_json()
     durations = {
-        "pump1": data.get("pump1", 0),
-        "pump2": data.get("pump2", 0),
-        "pump3": data.get("pump3", 0),
-        "pump4": data.get("pump4", 0)
+        "pump1": int(data.get("pump1", 0)),
+        "pump2": int(data.get("pump2", 0)),
+        "pump3": int(data.get("pump3", 0)),
+        "pump4": int(data.get("pump4", 0))
     }
     
     for pump, duration in durations.items():
         if duration > 0:
-            GPIO.output(pump_pins[pump], GPIO.HIGH)
-            time.sleep(duration)
             GPIO.output(pump_pins[pump], GPIO.LOW)
+            time.sleep(duration)
+            GPIO.output(pump_pins[pump], GPIO.HIGH)
     
     return jsonify({"status": "success", "durations": durations})
 

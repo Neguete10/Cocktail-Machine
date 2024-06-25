@@ -119,6 +119,9 @@
         </select>
 
         <button type="submit">Save</button>
+        <div id="successAlert" class="alert alert-success" style="display: none;">
+          Settings saved successfully!
+        </div>
       </form>
 
       <h2>Activate Pumps</h2>
@@ -212,6 +215,11 @@
           }
 
           localStorage.setItem("formData", JSON.stringify(formData));
+          document.getElementById("successAlert").style.display = "block";
+          setTimeout(function () {
+            document.getElementById("successAlert").style.display = "none";
+          }, 3000);
+
         });
 
         document

@@ -9,7 +9,10 @@
       <div class="left" style="width: 35%">
         <a href="menu.html" class="back-btn">&larr; Back</a>
         <div class="design">
-          <img id="drink-image" style="height: 300px; width: 150px; border-radius: 5px" />
+          <img
+            id="drink-image"
+            style="height: 300px; width: 150px; border-radius: 5px"
+          />
         </div>
       </div>
       <div class="right" style="width: 65%">
@@ -17,6 +20,13 @@
         <p id="drink-description" style="text-align: justify; margin: 5%"></p>
         <ul id="ingredient-list"></ul>
         <button class="btn" onclick="makeRequest()">Make Me</button>
+        <div
+          id="successAlert"
+          class="alert alert-success"
+          style="display: none"
+        >
+          Drink is being prepared. Please wait.
+        </div>
       </div>
     </div>
 
@@ -25,29 +35,37 @@
       var drinkIngredients = {}; // Global variable to store the current drink's ingredients
 
       function loadDrinkData() {
-        fetch('../data/water.json')
-          .then(response => response.json())
-          .then(data => {
-            const drink = data.find(d => d.name === drinkName);
+        fetch("../data/water.json")
+          .then((response) => response.json())
+          .then((data) => {
+            const drink = data.find((d) => d.name === drinkName);
             if (drink) {
-              document.getElementById('drink-title').innerText = drink.name;
-              document.getElementById('drink-name').innerText = drink.name;
-              document.getElementById('drink-image').src = drink.image;
-              document.getElementById('drink-description').innerText = drink.description;
+              document.getElementById("drink-title").innerText = drink.name;
+              document.getElementById("drink-name").innerText = drink.name;
+              document.getElementById("drink-image").src = drink.image;
+              document.getElementById("drink-description").innerText =
+                drink.description;
 
               drinkIngredients = drink.ingredients; // Store the ingredients for later use
 
-              const ingredientList = document.getElementById('ingredient-list');
-              ingredientList.innerHTML = ''; // Clear existing content
+              const ingredientList = document.getElementById("ingredient-list");
+              ingredientList.innerHTML = ""; // Clear existing content
 
               for (let [key, ingredient] of Object.entries(drink.ingredients)) {
-                const listItem = document.createElement('li');
+                const listItem = document.createElement("li");
                 listItem.innerHTML = `
                   <label for="${key}">${ingredient.label}:</label>
                   <div class="select-wrapper">
                     <button onclick="decreaseValue('${key}')">-</button>
                     <select id="${key}" name="${key}">
-                      ${ingredient.options.map(option => `<option value="${option.split(' ')[0]}">${option}</option>`).join('')}
+                      ${ingredient.options
+                        .map(
+                          (option) =>
+                            `<option value="${
+                              option.split(" ")[0]
+                            }">${option}</option>`
+                        )
+                        .join("")}
                     </select>
                     <button onclick="increaseValue('${key}')">+</button>
                   </div>
@@ -56,14 +74,15 @@
               }
             }
           })
-          .catch(error => console.error('Error loading drink data:', error));
+          .catch((error) => console.error("Error loading drink data:", error));
       }
 
       loadDrinkData();
 
       function checkPumpsAndIngredients(pumps) {
         var pumpsWithIngredients = [];
-        for (let liquid of Object.keys(drinkIngredients)) { // Use the stored ingredients
+        for (let liquid of Object.keys(drinkIngredients)) {
+          // Use the stored ingredients
           if (!pumps || !Object.values(pumps).includes(liquid)) {
             alert(`Please assign ${liquid} to a pump in the settings page.`);
             return false;
@@ -80,7 +99,7 @@
         var pumps = JSON.parse(localStorage.getItem("formData"));
         var ingredients = {};
 
-        document.querySelectorAll('select').forEach(select => {
+        document.querySelectorAll("select").forEach((select) => {
           ingredients[select.id] = select.value;
         });
 
@@ -110,11 +129,15 @@
           },
           body: JSON.stringify(body),
         })
-          .then(response => response.json())
-          .then(data => {
+          .then((response) => response.json())
+          .then((data) => {
+            document.getElementById("successAlert").style.display = "block";
+            setTimeout(function () {
+              document.getElementById("successAlert").style.display = "none";
+            }, 3000);
             console.log(data);
           })
-          .catch(error => {
+          .catch((error) => {
             console.error(error);
           });
       }
