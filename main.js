@@ -3,84 +3,37 @@ require('electron-reload')(__dirname, {
     electron: require(`${__dirname}/node_modules/electron`)
 });
 
-
 function createWindow() {
     const mainWindow = new BrowserWindow({
         width: 1024,
         height: 800,
-        fullscreen: true,
+        fullscreen: true, // Consider setting this dynamically or providing an option for the user to toggle fullscreen mode
         webPreferences: {
-            nodeIntegration: true
+            nodeIntegration: true, // Disable nodeIntegration for security
+            // contextIsolation: true, // Enable contextIsolation for security
+            // preload: `${__dirname}/preload.js` // Use a preload script
         }
     });
 
     mainWindow.loadFile('html/home.html');
+
+    mainWindow.once('ready-to-show', () => {
+        mainWindow.show();
+    });
+
+    // Error handling for window creation
+    mainWindow.on('error', (error) => {
+        console.error(`An error occurred creating the window: ${error}`);
+    });
 }
 
-app.whenReady().then(() => {
-    createWindow();
-
-    app.on('activate', () => {
-        if (BrowserWindow.getAllWindows().length === 0) {
-            createWindow();
-        }
-    });
+app.whenReady().then(createWindow).catch(error => {
+    console.error(`Failed to create window: ${error}`);
 });
 
+// Quit when all windows are closed, except on macOS
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') {
         app.quit();
     }
 });
-
-//  let win;
-// function createWindow() {
-//     win = new BrowserWindow({
-//         width: 1024,
-//         height: 600,
-//         show: false,
-//     });
-
-//     win.loadFile('html/home.html');
-
-//     win.once('ready-to-show', () => {
-//         win.minimize();
-//         win.webContents.openDevTools();
-//     });
-
-//     win.setMenu(null);
-
-//     // Handle window close
-//     win.on('closed', () => {
-//         // Dereference the window object
-//         win = null;
-//     });
-// }
-
-// // When Electron has finished initialization, create the window
-// app.whenReady().then(createWindow);
-
-// // Quit when all windows are closed, except on macOS
-// app.on('window-all-closed', () => {
-//     if (process.platform !== 'darwin') {
-//         app.quit();
-//     }
-// });
-
-// app.on('before-quit', () => {
-//     if (win && !win.isDestroyed()) {
-//         if (win.webContents.isDevToolsOpened()) {
-//             win.webContents.closeDevTools();
-//         }
-//     }
-// });
-// // On macOS, re-create the window when the dock icon is clicked and no other windows are open
-// app.on('activate', () => {
-//     if (BrowserWindow.getAllWindows().length === 0) {
-//         createWindow();
-//     }
-// });
-
-
-
-
