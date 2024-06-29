@@ -123,7 +123,11 @@
         </select>
 
         <button type="submit">Save</button>
-        <div id="successAlert" class="alert alert-success" style="display: none;">
+        <div
+          id="successAlert"
+          class="alert alert-success"
+          style="display: none"
+        >
           Settings saved successfully!
         </div>
       </form>
@@ -162,6 +166,10 @@
           <span class="slider"></span>
         </label>
       </form>
+      <h2>Reboot</h2>
+      <button id="reboot-button">Reboot</button>
+      <h2>Shutdown</h2>
+      <button id="shutdown-button">Shutdown</button>
     </div>
     <script>
       // Retrieve the stored form data from localStorage
@@ -180,26 +188,26 @@
         .querySelectorAll('.switch input[type="checkbox"]')
         .forEach((checkbox) => {
           checkbox.addEventListener("change", function () {
-        if (this.checked) {
-          var status = "on";
-        } else {
-          var status = "off";
-        }
-        fetch("http://localhost:5000/pump_control", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            pumpId: this.id,
-            status: status,
-          }),
-        })
-          .then((response) => response.json())
-          .then((data) => console.log(data))
-          .catch((error) => {
-            console.error("Error:", error);
-          });
+            if (this.checked) {
+              var status = "on";
+            } else {
+              var status = "off";
+            }
+            fetch("http://localhost:5000/pump_control", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                pumpId: this.id,
+                status: status,
+              }),
+            })
+              .then((response) => response.json())
+              .then((data) => console.log(data))
+              .catch((error) => {
+                console.error("Error:", error);
+              });
           });
         });
 
@@ -223,37 +231,49 @@
           setTimeout(function () {
             document.getElementById("successAlert").style.display = "none";
           }, 3000);
-
         });
 
-        document
+      document
         .getElementById("cleanForm")
         .querySelectorAll('.switch input[type="checkbox"]')
         .forEach((checkbox) => {
           checkbox.addEventListener("change", function () {
-        if (this.checked) {
-          var status = "on";
-        } else {
-          var status = "off";
-        }
-        fetch("http://localhost:5000/clean", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            pumpId: this.id,
-            status: status,
-          }),
-        })
-          .then((response) => response.json())
-          .then((data) => console.log(data))
-          .catch((error) => {
-            console.error("Error:", error);
-          });
+            if (this.checked) {
+              var status = "on";
+            } else {
+              var status = "off";
+            }
+            fetch("http://localhost:5000/clean", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                pumpId: this.id,
+                status: status,
+              }),
+            })
+              .then((response) => response.json())
+              .then((data) => console.log(data))
+              .catch((error) => {
+                console.error("Error:", error);
+              });
           });
         });
-        </script>
+
+      document
+        .getElementById("shutdown-button")
+        .addEventListener("click", function () {
+          const { ipcRenderer } = require("electron");
+          ipcRenderer.send("shutdown-command");
+        });
+
+      document
+        .getElementById("reboot-button")
+        .addEventListener("click", function () {
+          const { ipcRenderer } = require("electron");
+          ipcRenderer.send("reboot-command");
+        });
     </script>
   </body>
 </html>
