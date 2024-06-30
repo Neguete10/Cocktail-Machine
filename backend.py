@@ -94,7 +94,7 @@ def shutdown():
         if system_platform == "Windows":
             os.system('shutdown /s /t 1')
         elif system_platform == "Linux":
-            os.system('shutdown -h now')
+            os.system('sudo shutdown -h now')
         else:
             return jsonify({"error": "Unsupported platform"}), 500
         return jsonify({"message": "System is shutting down..."}), 200
@@ -108,7 +108,7 @@ def reboot():
         if system_platform == "Windows":
             os.system('shutdown /r /t 1')
         elif system_platform == "Linux":
-            os.system('reboot')
+            os.system('sudo reboot')
         else:
             return jsonify({"error": "Unsupported platform"}), 500
         return jsonify({"message": "System is rebooting..."}), 200
