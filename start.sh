@@ -15,17 +15,9 @@ if [ $? -ne 0 ]; then
 else
   echo "Git pull succeeded at $(date)" >> /home/neguete/Documents/Cocktail-Machine/startup.log
 fi
-# Start backend.py
-echo "Starting backend.py at $(date)" >> /home/neguete/Documents/Cocktail-Machine/startup.log
-python3 backend.py >> /home/neguete/Documents/Cocktail-Machine/startup.log 2>&1 &
-if [ $? -ne 0 ]; then
-  echo "backend.py failed to start at $(date)" >> /home/neguete/Documents/Cocktail-Machine/startup.log
-else
-  echo "backend.py started successfully at $(date)" >> /home/neguete/Documents/Cocktail-Machine/startup.log
-fi
 # Start the application in the background
 echo "Starting npm application at $(date)" >> /home/neguete/Documents/Cocktail-Machine/startup.log
-npm start >> /home/neguete/Documents/Cocktail-Machine/startup.log 2>&1 &
+npm start >> /home/neguete/Documents/Cocktail-Machine/startup.log 2>&1
 if [ $? -ne 0 ]; then
   echo "npm start failed at $(date)" >> /home/neguete/Documents/Cocktail-Machine/startup.log
 else
