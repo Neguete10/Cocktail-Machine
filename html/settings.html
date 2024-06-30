@@ -264,15 +264,39 @@
       document
         .getElementById("shutdown-button")
         .addEventListener("click", function () {
-          const { ipcRenderer } = require("electron");
-          ipcRenderer.send("shutdown-command");
+          fetch("http://localhost:5000/shutdown", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              command: "shutdown",
+            }),
+          })
+            .then((response) => response.json())
+            .then((data) => console.log(data))
+            .catch((error) => {
+              console.error("Error:", error);
+            });
         });
 
       document
         .getElementById("reboot-button")
         .addEventListener("click", function () {
-          const { ipcRenderer } = require("electron");
-          ipcRenderer.send("reboot-command");
+          fetch("http://localhost:5000/reboot", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              command: "reboot",
+            }),
+          })
+            .then((response) => response.json())
+            .then((data) => console.log(data))
+            .catch((error) => {
+              console.error("Error:", error);
+            });
         });
     </script>
   </body>

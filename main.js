@@ -1,30 +1,30 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
-const { exec } = require('child_process');
+//const { exec } = require('child_process');
 require('electron-reload')(__dirname, {
     electron: require(`${__dirname}/node_modules/electron`)
 });
 
-ipcMain.on('shutdown-command', (event) => {
-    exec('sudo shutdown -h now', (error, stdout, stderr) => {
-        if (error) {
-            console.error(`exec error: ${error}`);
-            return;
-        }
-        console.log(`stdout: ${stdout}`);
-        console.error(`stderr: ${stderr}`);
-    });
-});
+// ipcMain.on('shutdown-command', (event) => {
+//     exec('sudo shutdown -h now', (error, stdout, stderr) => {
+//         if (error) {
+//             console.error(`exec error: ${error}`);
+//             return;
+//         }
+//         console.log(`stdout: ${stdout}`);
+//         console.error(`stderr: ${stderr}`);
+//     });
+// });
 
-ipcMain.on('reboot-command', (event) => {
-    exec('sudo reboot', (error, stdout, stderr) => {
-        if (error) {
-            console.error(`exec error: ${error}`);
-            return;
-        }
-        console.log(`stdout: ${stdout}`);
-        console.error(`stderr: ${stderr}`);
-    });
-});
+// ipcMain.on('reboot-command', (event) => {
+//     exec('sudo reboot', (error, stdout, stderr) => {
+//         if (error) {
+//             console.error(`exec error: ${error}`);
+//             return;
+//         }
+//         console.log(`stdout: ${stdout}`);
+//         console.error(`stderr: ${stderr}`);
+//     });
+// });
 
 function createWindow() {
     const mainWindow = new BrowserWindow({

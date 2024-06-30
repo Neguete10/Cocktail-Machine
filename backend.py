@@ -1,4 +1,6 @@
 from flask import Flask, request, jsonify
+import os
+import platform
 import RPi.GPIO as GPIO
 import time
 import atexit
@@ -84,6 +86,34 @@ def clean():
         "message": "All cleaned up nicely now!",
         "status": "success"
     })
+    
+@app.route('/shutdown', methods=['POST'])
+def shutdown():
+    system_platform = platform.system()
+    try:
+        if system_platform == "Windows":
+            os.system('shutdown /s /t 1')
+        elif system_platform == "Linux":
+            os.system('shutdown -h now')
+        else:
+            return jsonify({"error": "Unsupported platform"}), 500
+        return jsonify({"message": "System is shutting down..."}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/reboot', methods=['POST'])
+def reboot():
+    system_platform = platform.system()
+    try:
+        if system_platform == "Windows":
+            os.system('shutdown /r /t 1')
+        elif system_platform == "Linux":
+            os.system('reboot')
+        else:
+            return jsonify({"error": "Unsupported platform"}), 500
+        return jsonify({"message": "System is rebooting..."}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
