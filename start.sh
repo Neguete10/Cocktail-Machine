@@ -25,7 +25,7 @@ else
 fi
 # Start the application in the background
 echo "Starting npm application at $(date)" >> /home/neguete/Documents/Cocktail-Machine/startup.log
-npm start >> /home/neguete/Documents/Cocktail-Machine/startup.log 2>&1 
+npm start >> /home/neguete/Documents/Cocktail-Machine/startup.log 2>&1 &
 if [ $? -ne 0 ]; then
   echo "npm start failed at $(date)" >> /home/neguete/Documents/Cocktail-Machine/startup.log
 else
