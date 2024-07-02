@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title id="drink-title"></title>
   <link rel="stylesheet" href="../css/margarita.css" />
 </head>
+
 <body>
   <div class="card">
     <div class="left" style="width: 35%">
@@ -24,6 +26,8 @@
   </div>
 
   <script>
+    var drinkIngredients = {}; // Global variable to store the current drink's ingredients
+
     // Function to get query parameter
     function getQueryParameter(name) {
       const urlParams = new URLSearchParams(window.location.search);
@@ -43,6 +47,8 @@
             document.getElementById('drink-image').src = drink.image;
             document.getElementById('drink-description').innerText = drink.description;
 
+            drinkIngredients = drink.ingredients; // Store the ingredients for later use
+
             const ingredientList = document.getElementById('ingredient-list');
             ingredientList.innerHTML = ''; // Clear existing content
 
@@ -54,8 +60,8 @@
                   <button onclick="decreaseValue('${key}')">-</button>
                   <select id="${key}" name="${key}">
                     ${ingredient.options
-                      .map(option => `<option value="${option.split(" ")[0]}">${option}</option>`)
-                      .join('')}
+                  .map(option => `<option value="${option.split(" ")[0]}">${option}</option>`)
+                  .join('')}
                   </select>
                   <button onclick="increaseValue('${key}')">+</button>
                 </div>
@@ -69,38 +75,29 @@
 
     document.addEventListener('DOMContentLoaded', loadDrinkData);
 
-    // Other functions remain the same as in your provided script
-    function makeRequest() {
-      var drinkName = getQueryParameter('name');
-      var drinkIngredients = {}; // Global variable to store the current drink's ingredients
+    function checkPumpsAndIngredients(pumps) {
+      var pumpsWithIngredients = [];
+      for (let liquid of Object.keys(drinkIngredients)) {
+        // Use the stored ingredients
+        if (!pumps || !Object.values(pumps).includes(liquid)) {
+          alert(`Please assign ${liquid} to a pump in the settings page.`);
+          return false;
+        }
+        pumpsWithIngredients.push(
+          Object.keys(pumps).find((key) => pumps[key] === liquid)
+        );
+      }
 
+      return pumpsWithIngredients;
+    }
+
+    function makeRequest() {
       var pumps = JSON.parse(localStorage.getItem("formData"));
       var ingredients = {};
-
-      document.getElementById("successAlert").style.display = "block";
-      setTimeout(function () {
-        document.getElementById("successAlert").style.display = "none";
-      }, 10000);
 
       document.querySelectorAll("select").forEach((select) => {
         ingredients[select.id] = select.value;
       });
-
-      function checkPumpsAndIngredients(pumps) {
-        var pumpsWithIngredients = [];
-        for (let liquid of Object.keys(drinkIngredients)) {
-          // Use the stored ingredients
-          if (!pumps || !Object.values(pumps).includes(liquid)) {
-            alert(`Please assign ${liquid} to a pump in the settings page.`);
-            return false;
-          }
-          pumpsWithIngredients.push(
-            Object.keys(pumps).find((key) => pumps[key] === liquid)
-          );
-        }
-
-        return pumpsWithIngredients;
-      }
 
       const pumpsWithIngredients = checkPumpsAndIngredients(pumps);
       if (!pumpsWithIngredients) {
@@ -135,6 +132,11 @@
         .catch((error) => {
           console.error(error);
         });
+
+      document.getElementById("successAlert").style.display = "block";
+      setTimeout(function () {
+        document.getElementById("successAlert").style.display = "none";
+      }, 10000);
     }
 
     function increaseValue(selectId) {
@@ -154,4 +156,5 @@
     }
   </script>
 </body>
+
 </html>
