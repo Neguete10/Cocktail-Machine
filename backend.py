@@ -5,6 +5,7 @@ import RPi.GPIO as GPIO
 import time
 import atexit
 from flask_cors import CORS
+from threading import Thread
 
 app = Flask(__name__)
 CORS(app)
@@ -44,11 +45,21 @@ def activate_pumps():
         "pump4": float(data.get("pump4", 0))
     }
     seconds_per_ounce = 14 #off-set calibrated for 1 oz of liquid
+    
+    threads = []
     for pump, duration in durations.items():
-        if duration > 0:
-            GPIO.output(pump_pins[pump], GPIO.LOW)
-            time.sleep(duration*seconds_per_ounce)
-            GPIO.output(pump_pins[pump], GPIO.HIGH)
+        thread = Thread(target=activate_pumps, args=(pump, duration, seconds_per_ounce))
+        threads.append(thread)
+        thread.start()
+
+    for thread in threads:
+        thread.join()
+        
+    # for pump, duration in durations.items():
+    #     if duration > 0:
+    #         GPIO.output(pump_pins[pump], GPIO.LOW)
+    #         time.sleep(duration*seconds_per_ounce)
+    #         GPIO.output(pump_pins[pump], GPIO.HIGH)
     
     return jsonify({"status": "success", "durations": durations})
 
