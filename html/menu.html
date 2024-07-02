@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>Menu</title>
     <link rel="stylesheet" href="../css/menu.css">
 </head>
-
-<body>
+<body>   
     <div id="cocktail-machine">
         <div class="forRevBtn">
             <a href="home.html" class="back-btn">&larr; Back</a>
@@ -22,62 +20,31 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            fetch('./data/drinks.json')  // Adjusted path for local file
+            fetch('../data/drinks.json')
                 .then(response => response.json())
                 .then(data => {
                     const drinksContainer = document.getElementById('drinks-container');
-                    let drinkCardsHTML = '';
-
                     data.forEach(drink => {
-                        drinkCardsHTML += `
-                    <div class="drink-card">
-                        <img src="./images/${drink.image}" alt="${drink.name}" class="drink-image">  // Adjusted image path
-                        <button class="drink-btn">${drink.name}</button>
-                    </div>
-                `;
-                    });
+                        const drinkCard = document.createElement('div');
+                        drinkCard.className = 'drink-card';
+                        drinkCard.onclick = () => window.location.href = `drink.html?name=${encodeURIComponent(drink.name)}`;
 
-                    drinksContainer.innerHTML = drinkCardsHTML;
+                        const drinkImage = document.createElement('img');
+                        drinkImage.src = drink.image;
+                        drinkImage.alt = drink.name;
+                        drinkImage.className = 'drink-image';
 
-                    // Add event listener to drinksContainer for better performance
-                    drinksContainer.addEventListener('click', function (event) {
-                        const drinkCard = event.target.closest('.drink-card');
-                        if (drinkCard) {
-                            const drinkName = drinkCard.querySelector('.drink-btn').textContent;
-                            window.location.href = `drink.html?name=${encodeURIComponent(drinkName)}`;
-                        }
+                        const drinkButton = document.createElement('button');
+                        drinkButton.className = 'drink-btn';
+                        drinkButton.textContent = drink.name;
+
+                        drinkCard.appendChild(drinkImage);
+                        drinkCard.appendChild(drinkButton);
+                        drinksContainer.appendChild(drinkCard);
                     });
                 })
                 .catch(error => console.error('Error fetching the cocktails:', error));
         });
-
-        // document.addEventListener('DOMContentLoaded', function () {
-        //     fetch('../data/drinks.json')
-        //         .then(response => response.json())
-        //         .then(data => {
-        //             const drinksContainer = document.getElementById('drinks-container');
-        //             data.forEach(drink => {
-        //                 const drinkCard = document.createElement('div');
-        //                 drinkCard.className = 'drink-card';
-        //                 drinkCard.onclick = () => window.location.href = `drink.html?name=${encodeURIComponent(drink.name)}`;
-
-        //                 const drinkImage = document.createElement('img');
-        //                 drinkImage.src = drink.image;
-        //                 drinkImage.alt = drink.name;
-        //                 drinkImage.className = 'drink-image';
-
-        //                 const drinkButton = document.createElement('button');
-        //                 drinkButton.className = 'drink-btn';
-        //                 drinkButton.textContent = drink.name;
-
-        //                 drinkCard.appendChild(drinkImage);
-        //                 drinkCard.appendChild(drinkButton);
-        //                 drinksContainer.appendChild(drinkCard);
-        //             });
-        //         })
-        //         .catch(error => console.error('Error fetching the cocktails:', error));
-        // });
     </script>
 </body>
-
 </html>
