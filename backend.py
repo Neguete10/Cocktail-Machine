@@ -38,10 +38,10 @@ atexit.register(cleanup_gpio)
 def activate_pumps():
     data = request.get_json()
     durations = {
-        "pump1": int(data.get("pump1", 0)),
-        "pump2": int(data.get("pump2", 0)),
-        "pump3": int(data.get("pump3", 0)),
-        "pump4": int(data.get("pump4", 0))
+        "pump1": float(data.get("pump1", 0)),
+        "pump2": float(data.get("pump2", 0)),
+        "pump3": float(data.get("pump3", 0)),
+        "pump4": float(data.get("pump4", 0))
     }
     seconds_per_ounce = 14 #off-set calibrated for 1 oz of liquid
     for pump, duration in durations.items():
