@@ -55,7 +55,7 @@ def activate_pumps():
         "pump3": float(data.get("pump3", 0)),
         "pump4": float(data.get("pump4", 0))
     }
-    seconds_per_ounce = 14  # off-set calibrated for 1 oz of liquid
+    seconds_per_ounce = 15  # off-set calibrated for 1 oz of liquid
 
     threads = []
     for pump, duration in durations.items():
