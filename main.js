@@ -1,30 +1,8 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
-//const { exec } = require('child_process');
 require('electron-reload')(__dirname, {
     electron: require(`${__dirname}/node_modules/electron`)
 });
 
-// ipcMain.on('shutdown-command', (event) => {
-//     exec('sudo shutdown -h now', (error, stdout, stderr) => {
-//         if (error) {
-//             console.error(`exec error: ${error}`);
-//             return;
-//         }
-//         console.log(`stdout: ${stdout}`);
-//         console.error(`stderr: ${stderr}`);
-//     });
-// });
-
-// ipcMain.on('reboot-command', (event) => {
-//     exec('sudo reboot', (error, stdout, stderr) => {
-//         if (error) {
-//             console.error(`exec error: ${error}`);
-//             return;
-//         }
-//         console.log(`stdout: ${stdout}`);
-//         console.error(`stderr: ${stderr}`);
-//     });
-// });
 
 function createWindow() {
     const mainWindow = new BrowserWindow({
@@ -39,6 +17,19 @@ function createWindow() {
     });
 
     mainWindow.loadFile('html/home.html');
+
+    mainWindow.webContents.session.webRequest.onHeadersReceived((details, callback) => {
+        const contentType = details.responseHeaders['Content-Type'] || details.responseHeaders['content-type'];
+        if (contentType) {
+            const value = Array.isArray(contentType) ? contentType[0] : contentType;
+            if (value.startsWith('text/html')) {
+                details.responseHeaders['Cache-Control'] = ['max-age=604800']; // 1 week cache for HTML
+            } else if (value.startsWith('image/')) {
+                details.responseHeaders['Cache-Control'] = ['max-age=2592000']; // 30 days cache for images
+            }
+        }
+        callback({ cancel: false, responseHeaders: details.responseHeaders });
+    });
 
     mainWindow.once('ready-to-show', () => {
         mainWindow.show();
