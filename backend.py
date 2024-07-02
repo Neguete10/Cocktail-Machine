@@ -6,13 +6,16 @@ import time
 import atexit
 from flask_cors import CORS
 from threading import Thread
+import logging
 
 app = Flask(__name__)
 CORS(app)
 
-app = Flask(__name__)
+# Set up logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
 
-#TOP VIEW FROM BACK
+# TOP VIEW FROM BACK
 # M4 -- M3
 # M1 -- M2
 
@@ -35,6 +38,14 @@ def cleanup_gpio():
 
 atexit.register(cleanup_gpio)
 
+def activate_pump(pump, duration, seconds_per_ounce):
+    logger.info(f"Thread started for {pump} with duration {duration}")
+    if duration > 0:
+        GPIO.output(pump_pins[pump], GPIO.LOW)
+        time.sleep(duration * seconds_per_ounce)
+        GPIO.output(pump_pins[pump], GPIO.HIGH)
+    logger.info(f"Thread finished for {pump}")
+
 @app.route('/activate_pumps', methods=['POST'])
 def activate_pumps():
     data = request.get_json()
@@ -44,29 +55,23 @@ def activate_pumps():
         "pump3": float(data.get("pump3", 0)),
         "pump4": float(data.get("pump4", 0))
     }
-    seconds_per_ounce = 14 #off-set calibrated for 1 oz of liquid
-    
+    seconds_per_ounce = 14  # off-set calibrated for 1 oz of liquid
+
     threads = []
     for pump, duration in durations.items():
-        thread = Thread(target=activate_pumps, args=(pump, duration, seconds_per_ounce))
+        thread = Thread(target=activate_pump, args=(pump, duration, seconds_per_ounce))
         threads.append(thread)
         thread.start()
 
     for thread in threads:
         thread.join()
-        
-    # for pump, duration in durations.items():
-    #     if duration > 0:
-    #         GPIO.output(pump_pins[pump], GPIO.LOW)
-    #         time.sleep(duration*seconds_per_ounce)
-    #         GPIO.output(pump_pins[pump], GPIO.HIGH)
-    
+
     return jsonify({"status": "success", "durations": durations})
 
 @app.route('/pump_control', methods=['POST'])
 def pump_control():
     data = request.get_json()
-    
+
     pumpId = data.get("pumpId", 0)
     pumpStatus = data.get("status", 0)
 
@@ -74,11 +79,12 @@ def pump_control():
         GPIO.output(pump_pins[pumpId], GPIO.LOW)
     else:
         GPIO.output(pump_pins[pumpId], GPIO.HIGH)
-    
+
     return jsonify({
         "message": pumpId + " is turned " + pumpStatus + "!",
-        "status": "success"})
-    
+        "status": "success"
+    })
+
 @app.route('/clean', methods=['POST'])
 def clean():
     data = request.get_json()
@@ -90,14 +96,14 @@ def clean():
     else:
         for pump in pump_pins.values():
             GPIO.output(pump, GPIO.HIGH)
-        
+
     print(pumpId)
-    
+
     return jsonify({
         "message": "All cleaned up nicely now!",
         "status": "success"
     })
-    
+
 @app.route('/shutdown', methods=['POST'])
 def shutdown():
     system_platform = platform.system()
