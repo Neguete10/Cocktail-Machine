@@ -8,37 +8,43 @@
     <div id="cocktail-machine">
         <div class="forRevBtn">
             <a href="home.html" class="back-btn">&larr; Back</a>
-        <a href="settings.html">
-            <img src="../images/setting.webp" alt="Settings" class="settings-btn">
-        </a>
+            <a href="settings.html">
+                <img src="../images/setting.webp" alt="Settings" class="settings-btn">
+            </a>
         </div>
         <h1>Choose a Drink:</h1>
-        <div class="drinks-container">
-            <div class="drink-card" onclick="window.location.href='crownapple.html'">
-                <img src="../images/crownapple.webp" alt="crownapple" class="drink-image">
-                <button class="drink-btn">Crownberry Apple</button>
-            </div>
-            <div class="drink-card" onclick="window.location.href='oldfashion.html'">
-                <img src="../images/oldfashion.webp" alt="Old Fashioned" class="drink-image">
-                <button class="drink-btn">Old Fashioned</button>
-            </div>
-            <div class="drink-card" onclick="window.location.href='margarita.html'">
-                <img src="../images/margarita.webp" alt="Margarita" class="drink-image">
-                <button class="drink-btn">Margarita</button>
-            </div>
-            <div class="drink-card" onclick="window.location.href='margarita.html'">
-                <img src="../images/mojito.webp" alt="Mojito" class="drink-image">
-                <button class="drink-btn">Mojito</button>
-            </div>
-            <div class="drink-card" onclick="window.location.href='margarita.html'">
-                <img src="../images/cosmopolitan.webp" alt="Cosmopolitan" class="drink-image">
-                <button class="drink-btn">Cosmopolitan</button>
-            </div>
-            <div class="drink-card" onclick="window.location.href='water.html'">
-                <img src="../images/water.webp" alt="water" class="drink-image">
-                <button class="drink-btn">Water</button>
-            </div>
+        <div class="drinks-container" id="drinks-container">
+            <!-- Drink cards will be dynamically inserted here -->
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            fetch('../data/drinks.json')
+                .then(response => response.json())
+                .then(data => {
+                    const drinksContainer = document.getElementById('drinks-container');
+                    data.forEach(drink => {
+                        const drinkCard = document.createElement('div');
+                        drinkCard.className = 'drink-card';
+                        drinkCard.onclick = () => window.location.href = `drink.html?name=${encodeURIComponent(drink.name)}`;
+
+                        const drinkImage = document.createElement('img');
+                        drinkImage.src = drink.image;
+                        drinkImage.alt = drink.name;
+                        drinkImage.className = 'drink-image';
+
+                        const drinkButton = document.createElement('button');
+                        drinkButton.className = 'drink-btn';
+                        drinkButton.textContent = drink.name;
+
+                        drinkCard.appendChild(drinkImage);
+                        drinkCard.appendChild(drinkButton);
+                        drinksContainer.appendChild(drinkCard);
+                    });
+                })
+                .catch(error => console.error('Error fetching the cocktails:', error));
+        });
+    </script>
 </body>
 </html>
