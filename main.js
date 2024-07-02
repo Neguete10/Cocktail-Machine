@@ -18,19 +18,6 @@ function createWindow() {
 
     mainWindow.loadFile('html/home.html');
 
-    mainWindow.webContents.session.webRequest.onHeadersReceived((details, callback) => {
-        const contentType = details.responseHeaders['Content-Type'] || details.responseHeaders['content-type'];
-        if (contentType) {
-            const value = Array.isArray(contentType) ? contentType[0] : contentType;
-            if (value.startsWith('text/html')) {
-                details.responseHeaders['Cache-Control'] = ['max-age=604800']; // 1 week cache for HTML
-            } else if (value.startsWith('image/')) {
-                details.responseHeaders['Cache-Control'] = ['max-age=2592000']; // 30 days cache for images
-            }
-        }
-        callback({ cancel: false, responseHeaders: details.responseHeaders });
-    });
-
     mainWindow.once('ready-to-show', () => {
         mainWindow.show();
     });
