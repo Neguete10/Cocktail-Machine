@@ -129,3 +129,15 @@
     font-size: large;
     margin-top: 5%;
   }
+  .settings-btn {
+    display: inline-block;
+    background-color: #0099ff;
+    color: #ffffff;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-bottom: 20px;
+    margin-left: 20px;
+    width: 25px;
+    height: 25px;
+}
