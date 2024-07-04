@@ -15,6 +15,63 @@
     }
   },
   {
+    "name": "Margarita",
+    "image": "../images/margarita.webp",
+    "description": "A standard Margarita contains tequila, lime juice, and triple sec, served with salt on the rim of the glass.",
+    "ingredients": {
+      "Tequila": {
+        "label": "Tequila",
+        "options": ["1.5 ounces", "2 ounces", "2.5 ounces"]
+      },
+      "LimeJuice": {
+        "label": "Lime Juice",
+        "options": ["1 ounce", "1.5 ounces", "2 ounces"]
+      },
+      "TripleSec": {
+        "label": "Triple Sec",
+        "options": ["0.5 ounce", "0.75 ounce", "1 ounce"]
+      }
+    }
+  },
+  {
+    "name": "Old Fashioned",
+    "image": "../images/oldfashioned.webp",
+    "description": "A traditional Old Fashioned contains bourbon or rye whiskey, sugar, Angostura bitters, and a twist of citrus rind.",
+    "ingredients": {
+      "Bourbon": {
+        "label": "Bourbon",
+        "options": ["2 ounces", "2.5 ounces", "3 ounces"]
+      },
+      "Sugar": {
+        "label": "Sugar",
+        "options": ["1 teaspoon", "1.5 teaspoons", "2 teaspoons"]
+      },
+      "AngosturaBitters": {
+        "label": "Angostura Bitters",
+        "options": ["2 dashes", "3 dashes", "4 dashes"]
+      }
+    }
+  },
+  {
+    "name": "Amarreto Sour",
+    "image": "../images/amarettosour.webp",
+    "description": "An Amaretto Sour contains amaretto, sprite, sweet & sour mix, simple syrup,and a cherry garnish.",
+    "ingredients": {
+      "Amaretto": {
+        "label": "Amaretto",
+        "options": ["1.5 ounces", "2 ounces", "2.5 ounces"]
+      },
+      "Sprite": {
+        "label": "Sprite",
+        "options": ["1 ounce", "1.5 ounces", "2 ounces"]
+      },
+      "SweetAndSourMix": {
+        "label": "SweetAndSourMix",
+        "options": ["0.5 ounce", "0.75 ounce", "1 ounce"]
+      }
+    }
+  },
+  {
     "name": "Crown Sprite",
     "image": "../images/crownsprite.webp",
     "description": "A standard portion of Crownberry Sprite contains about 1.5 ounces of Crown Royal Apple and 4 ounces of Sprite. The drink is typically garnished with a slice of apple.",
@@ -30,17 +87,6 @@
     }
   },
   {
-    "name": "Water",
-    "image": "../images/water.webp",
-    "description": "Water is a transparent, tasteless, odorless, and nearly colorless chemical substance, which is the main constituent of Earth's streams, lakes, and oceans, and the fluids of most living organisms. It is vital for all known forms of life, even though it provides no calories or organic nutrients.",
-    "ingredients": {
-      "Water": {
-        "label": "Water",
-        "options": ["1 ounce", "2 ounces", "3 ounces"]
-      }
-    }
-  },
-  {
     "name": "Martini",
     "image": "../images/martini.webp",
     "description": "A classic Martini contains gin and vermouth, garnished with an olive or a lemon twist.",
@@ -51,25 +97,6 @@
       },
       "Vermouth": {
         "label": "Vermouth",
-        "options": ["0.5 ounce", "0.75 ounce", "1 ounce"]
-      }
-    }
-  },
-  {
-    "name": "Margarita",
-    "image": "../images/margarita.webp",
-    "description": "A standard Margarita contains tequila, lime juice, and triple sec, served with salt on the rim of the glass.",
-    "ingredients": {
-      "Tequila": {
-        "label": "Tequila",
-        "options": ["1.5 ounces", "2 ounces", "2.5 ounces"]
-      },
-      "LimeJuice": {
-        "label": "Lime Juice",
-        "options": ["1 ounce", "1.5 ounces", "2 ounces"]
-      },
-      "TripleSec": {
-        "label": "Triple Sec",
         "options": ["0.5 ounce", "0.75 ounce", "1 ounce"]
       }
     }
@@ -90,25 +117,6 @@
       "SodaWater": {
         "label": "Soda Water",
         "options": ["2 ounces", "3 ounces", "4 ounces"]
-      }
-    }
-  },
-  {
-    "name": "Old Fashioned",
-    "image": "../images/oldfashioned.webp",
-    "description": "A traditional Old Fashioned contains bourbon or rye whiskey, sugar, Angostura bitters, and a twist of citrus rind.",
-    "ingredients": {
-      "Bourbon": {
-        "label": "Bourbon",
-        "options": ["2 ounces", "2.5 ounces", "3 ounces"]
-      },
-      "Sugar": {
-        "label": "Sugar",
-        "options": ["1 teaspoon", "1.5 teaspoons", "2 teaspoons"]
-      },
-      "AngosturaBitters": {
-        "label": "Angostura Bitters",
-        "options": ["2 dashes", "3 dashes", "4 dashes"]
       }
     }
   },
@@ -265,37 +273,6 @@
     }
   },
   {
-    "name": "Long Island Iced Tea",
-    "image": "../images/longislandicedtea.webp",
-    "description": "A Long Island Iced Tea contains vodka, tequila, rum, gin, triple sec, and a splash of cola.",
-    "ingredients": {
-      "Vodka": {
-        "label": "Vodka",
-        "options": ["0.5 ounce", "0.75 ounce", "1 ounce"]
-      },
-      "Tequila": {
-        "label": "Tequila",
-        "options": ["0.5 ounce", "0.75 ounce", "1 ounce"]
-      },
-      "Rum": {
-        "label": "Rum",
-        "options": ["0.5 ounce", "0.75 ounce", "1 ounce"]
-      },
-      "Gin": {
-        "label": "Gin",
-        "options": ["0.5 ounce", "0.75 ounce", "1 ounce"]
-      },
-      "TripleSec": {
-        "label": "Triple Sec",
-        "options": ["0.5 ounce", "0.75 ounce", "1 ounce"]
-      },
-      "Cola": {
-        "label": "Cola",
-        "options": ["1 ounce", "1.5 ounces", "2 ounces"]
-      }
-    }
-  },
-  {
     "name": "Mai Tai",
     "image": "../images/maitai.webp",
     "description": "A Mai Tai contains rum, lime juice, orgeat syrup, and orange liqueur.",
@@ -333,6 +310,48 @@
       },
       "Espresso": {
         "label": "Espresso",
+        "options": ["1 ounce", "1.5 ounces", "2 ounces"]
+      }
+    }
+  },
+  {
+    "name": "Water",
+    "image": "../images/water.webp",
+    "description": "Water is a transparent, tasteless, odorless, and nearly colorless chemical substance, which is the main constituent of Earth's streams, lakes, and oceans, and the fluids of most living organisms. It is vital for all known forms of life, even though it provides no calories or organic nutrients.",
+    "ingredients": {
+      "Water": {
+        "label": "Water",
+        "options": ["1 ounce", "2 ounces", "3 ounces"]
+      }
+    }
+  },
+  {
+    "name": "Long Island Iced Tea",
+    "image": "../images/longislandicedtea.webp",
+    "description": "A Long Island Iced Tea contains vodka, tequila, rum, gin, triple sec, and a splash of cola.",
+    "ingredients": {
+      "Vodka": {
+        "label": "Vodka",
+        "options": ["0.5 ounce", "0.75 ounce", "1 ounce"]
+      },
+      "Tequila": {
+        "label": "Tequila",
+        "options": ["0.5 ounce", "0.75 ounce", "1 ounce"]
+      },
+      "Rum": {
+        "label": "Rum",
+        "options": ["0.5 ounce", "0.75 ounce", "1 ounce"]
+      },
+      "Gin": {
+        "label": "Gin",
+        "options": ["0.5 ounce", "0.75 ounce", "1 ounce"]
+      },
+      "TripleSec": {
+        "label": "Triple Sec",
+        "options": ["0.5 ounce", "0.75 ounce", "1 ounce"]
+      },
+      "Cola": {
+        "label": "Cola",
         "options": ["1 ounce", "1.5 ounces", "2 ounces"]
       }
     }
